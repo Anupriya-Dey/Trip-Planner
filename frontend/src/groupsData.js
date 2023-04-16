@@ -1,16 +1,3 @@
-// import { useState, useEffect } from 'react';
-
-// export const GroupsData = () => {
-//   const [groupsData, setData] = useState([]);
-
-//   useEffect(() => {
-//     fetch("http://127.0.0.1:8000/1/trips/")
-//     .then((response) => response.json())
-//     .then((data) => {setData(data)} )
-//   }, [])
-//   console.log(groupsData);
-
-// }
 // // export const groupsData = [
 // //     {
 // //       id: 1,

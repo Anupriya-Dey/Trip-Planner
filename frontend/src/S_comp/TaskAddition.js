@@ -5,6 +5,7 @@ import Form from 'react-bootstrap/Form';
 import { useState } from 'react';
 
 // export const TaskAdd = (pl, { addMyTask }) => {
+  
 export const TaskAdd = (props) => {
   const [time, setTime] = useState("");
   const [loc, setLoc] = useState("");
@@ -17,6 +18,8 @@ export const TaskAdd = (props) => {
   //   }
   //   else pl.addMyTask(pl.length, time, loc, desc);
   // }
+ 
+  
   const handleSubmit = (e) => {
     console.log(props.day, desc, time, loc);
     e.preventDefault();

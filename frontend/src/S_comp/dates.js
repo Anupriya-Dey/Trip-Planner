@@ -3,6 +3,7 @@ import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import Container from 'react-bootstrap/esm/Container';
 import Collapse from 'react-bootstrap/Collapse';
 import { useState, useEffect } from 'react';
+import { months } from './month';
 
 import { DayPlans } from './Dayplans.js';
 import TaskAdd from './TaskAddition.js';
@@ -26,6 +27,8 @@ export const Dates = (props) => {
     setSchedule(schedule.filter((e)=>{
       return e!==Task;
     }));
+    
+    
   }
   useEffect(() => { 
     console.log( props.startDate)
@@ -48,6 +51,20 @@ export const Dates = (props) => {
 
   }
 
+  const formatDate = (date) => {
+    // let m=date.getMonth()+1;
+    // let d=date.getDate();
+    // let y=date.getYear();
+    let y=parseInt(date.substr(0,4));
+    let m=parseInt(date.substring(5,7));
+    let d=parseInt(date.substring(8,10));
+
+    return (
+
+      <p>{d} {months[m]}, {y}</p>
+    )
+  }
+
   const RenderItems = () => {
 
     const [dateColor, setDateColor] = useState("#FF900B");
@@ -59,7 +76,9 @@ export const Dates = (props) => {
         {{ backgroundColor: dateColor, color: "#000000", borderColor: "", height: "60px" }}
         onClick={() => { handleClick(date) }}
         aria-controls="schedule"
-      >{date}</Button>
+      // >{date}</Button>
+      >{formatDate(date)}</Button>
+
 
 
     )
