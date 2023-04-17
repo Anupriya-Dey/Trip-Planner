@@ -2,17 +2,15 @@ import Card from 'react-bootstrap/Card';
 import Container from 'react-bootstrap/Container';
 import CloseButton from 'react-bootstrap/CloseButton';
 import { useEffect, useState } from 'react';
-import TaskAdd from './TaskAddition.js';
 
 export const DayPlans = (props) => {
 
 
   const [status, setStatus] = useState("");
   function handleClick(Task) {
-    fetch(`http://localhost:8000/1/trips/1/schedule/${Task.date}/events/${Task.id}`, { method: 'DELETE' })
+    fetch(`http://localhost:8000/${props.user}/trips/${props.trip}/schedule/${Task.date}/events/${Task.id}`, { method: 'DELETE' })
       .then(() => setStatus('Delete successful'));
     console.log(status);
-    // empty dependency array means this effect will only run once (like componentDidMount in classes)
   };
 
 

@@ -10,6 +10,7 @@ class User(models.Model):
     email = models.CharField(max_length=250)
     mob = models.PositiveIntegerField()
     age = models.IntegerField()
+    Name = models.CharField(default="", max_length=250)
     # trips_created
     # trips_attended
     # schedule_user
@@ -39,4 +40,14 @@ class Planner(models.Model):
 
     def _str_(self):
         return self.event
+    
+class Message(models.Model):
+     sender = models.ForeignKey(User, on_delete=models.CASCADE, related_name='sender')        
+     message = models.TextField()
+     timestamp = models.DateTimeField(auto_now_add=True)
+     group_id=models.IntegerField(null=True)
+     def __str__(self):
+           return self.message
+     class Meta:
+           ordering = ('timestamp',)
 

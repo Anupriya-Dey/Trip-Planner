@@ -6,16 +6,22 @@ import Navbar from 'react-bootstrap/Navbar';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { useState, useEffect } from 'react';
+import { Outlet, Link } from "react-router-dom";
 
-export const DashB = ({ username }) => {
+export const DashB = (props) => {
   const [groupsData, setData] = useState([]);
-
+  const [trip, setTrip] = useState("");
+  // const [user, setUser] = useState(0);
   useEffect(() => {
     fetch("http://127.0.0.1:8000/1/trips")
-    .then((response) => response.json())
-    .then((data) => {setData(data)} )
+      .then((response) => response.json())
+      .then((data) => { setData(data) })
   }, [])
-  console.log(groupsData);
+  
+  
+  
+  // console.log(groupsData);
+  // console.log(trip);
   return (
     <div >
       <div>
@@ -48,7 +54,7 @@ export const DashB = ({ username }) => {
                 fontWeight: 'bold',
                 marginBottom: '30%',
               }}>
-              Welcome to Trip Royale,<br /> {username}
+              Welcome to Trip Royale,<br /> {props.user}
             </h1>
           </Col>
 
@@ -66,10 +72,12 @@ export const DashB = ({ username }) => {
               {groupsData.map((ev) => {
                 return (
                   <div key={ev.id} className="d-flex mb-3">
-                    <Button variant="warning"
-                      style={{ height: "50px", borderRadius: "50%", backgroundColor: "#FF900B" }}
-                    >{">"}</Button>
-                    <Card
+                    <Link to="/scheduler" state={{ trip: ev.id, user: props.user }}>
+                
+                    <Card onClick={() => {
+                      setTrip(ev.id);
+                      
+                    }}
                       style={{
                         backgroundColor: "#FF900B",
                         width: "100%",
@@ -82,6 +90,7 @@ export const DashB = ({ username }) => {
                         </blockquote>
                       </Card.Body>
                     </Card>
+                    </Link>
                   </div>
                 );
               })}
@@ -99,7 +108,10 @@ export const DashB = ({ username }) => {
                   cursor: 'pointer',
                   marginTop: '30%',
                   marginLeft: "70%"
-                }}>+</Button>
+                }}>
+                <Link to="/newtrip">+
+                </Link>
+              </Button>
             </Container>
           </Col>
         </div>

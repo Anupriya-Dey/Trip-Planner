@@ -3,14 +3,16 @@ import Button from 'react-bootstrap/Button';
 import Offcanvas from 'react-bootstrap/Offcanvas';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Collapse from 'react-bootstrap/Collapse';
+import { Outlet, Link } from "react-router-dom";
 
-function SideBar() {
+function SideBar(props) {
   const [show, setShow] = useState(false);
   const [open, setOpen] = useState(false);
 
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const handleME = () => setOpen(!open);
+  
   return (
     <>
       <Button variant="warning" onClick={handleShow} style={{backgroundColor:'#E28616',borderWidth:'0px',boxShadow:'1px 1px 1px 1px grey'}}>
@@ -23,7 +25,7 @@ function SideBar() {
         </Offcanvas.Header>
         <Offcanvas.Body>
         <ListGroup style={{borderWidth:'0px'}}>
-            <ListGroup.Item variant="warning" style={{backgroundColor:'#AD6207',borderWidth:'0px',color:'white'}}>SCHEDULER</ListGroup.Item>
+            <ListGroup.Item variant="warning" style={{backgroundColor:'#AD6207',borderWidth:'0px',color:'white'}}><Link to="/scheduler" state={{ trip: props.trip, user: props.user }}>SCHEDULER</Link></ListGroup.Item>
             <ListGroup.Item variant="warning" style={{backgroundColor:'#AD6207',borderWidth:'0px',color:'white'}}>FIND NEARBY PLACES</ListGroup.Item>
             <ListGroup.Item variant="warning" style={{backgroundColor:'#AD6207',borderWidth:'0px',color:'white'}}>SPLIT BILL</ListGroup.Item>
             <ListGroup.Item variant="warning" style={{backgroundColor:'#AD6207',borderWidth:'0px',color:'white'}}>
@@ -40,7 +42,7 @@ function SideBar() {
                 </Collapse>
             </ListGroup.Item>
             <ListGroup.Item variant="warning" style={{backgroundColor:'#AD6207',borderWidth:'0px',color:'white'}}>PHOTOS</ListGroup.Item>
-            <ListGroup.Item variant="warning" style={{backgroundColor:'#AD6207',borderWidth:'0px',color:'white'}}>CHAT</ListGroup.Item>
+            <ListGroup.Item variant="warning" style={{backgroundColor:'#AD6207',borderWidth:'0px',color:'white'}}><Link to="/chat" state={{ trip: props.trip, user: props.user }}>CHAT</Link></ListGroup.Item>
             <ListGroup.Item variant="warning" style={{backgroundColor:'#AD6207',borderWidth:'0px',color:'white'}}>SETTINGS</ListGroup.Item>
         </ListGroup>
         </Offcanvas.Body>

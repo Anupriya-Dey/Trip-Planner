@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import "react-bootstrap/dist/react-bootstrap.min.js";
+import 'react-bootstrap-buttons/dist/react-bootstrap-buttons.css';
 
 // import 'bootstrap/dist/css/bootstrap.min.css';
 

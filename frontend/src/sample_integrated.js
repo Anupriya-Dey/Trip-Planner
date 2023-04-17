@@ -39,12 +39,7 @@ class App extends Component {
           <p>
             id: {item.id} <br />
             event: {item.event}<br />
-            {/* leader_id: {item.leader.id} leader_name: {item.leader.first_name}<br />
-            start date: {item.start_date}<br />
-            end date: {item.end_date}<br /> */}
-            {/* {item.attendees}<br /> */}
-            {/* attendees id/name:
-            {item.attendees.map(user => <div>{user.id} {user.first_name} {user.email}</div>)} */}
+            
           </p>
         </li>
       ));

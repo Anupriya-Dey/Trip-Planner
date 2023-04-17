@@ -139,7 +139,7 @@ export const NewTrip = () => {
                   onChange={handleMemberSelection}
                 >{usersData.map((user) => (
                   // <option key={user.id} value={user.id}>+{user.name}</option>
-                  <option key={user.id} value={user.id}>+ {user.first_name} {user.last_name}</option>
+                  <option key={user.id} value={user.id}>+ {user.Name}</option>
 
                 ))}</Form.Control>
               </Form.Group>

@@ -10,6 +10,9 @@ from rest_framework import mixins
 from rest_framework import generics
 from rest_framework.decorators import action
 from operator import itemgetter
+from django.http.response import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework.parsers import JSONParser
 # Create your views here.
 
 # get user list
@@ -106,7 +109,43 @@ class DelTask(APIView):
         plan.delete()
         return Response(status=status.HTTP_204_NO_CONTENT)
 
-
+@csrf_exempt
+def message_list(request, group_id=None, me=None):
+    if request.method == 'GET':
+        messages = Message.objects.filter(group_id=group_id)
+        serializer = MessageSerializer(messages, many=True, context={'request': request})
+        return JsonResponse(serializer.data, safe=False)
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = MessageSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
+    
+def all_message_list(request, me=None, group_id=None):
+    """
+    List all required messages, or create a new message.
+    """
+    if request.method == 'GET':
+        messages = Message.objects
+        serializer = MessageSerializer(messages, many=True, context={'request': request})
+        return JsonResponse(serializer.data, safe=False)
+    elif request.method == 'POST':
+        data = JSONParser().parse(request)
+        serializer = MessageSerializer(data=data)
+        if serializer.is_valid():
+            serializer.save()
+            return JsonResponse(serializer.data, status=201)
+        return JsonResponse(serializer.errors, status=400)
+    
+class MessagePost(APIView):
+   def post(self,request, me, group_id):
+      serializer_obj = MessageSerializer(data = request.data)
+      if serializer_obj.is_valid():
+        serializer_obj.save()
+        return Response(serializer_obj.data,status=status.HTTP_201_CREATED)
+      return Response(serializer_obj.errors,status = status.HTTP_400_BAD_REQUEST)
 
     # {
     #     "dest": "Goa",

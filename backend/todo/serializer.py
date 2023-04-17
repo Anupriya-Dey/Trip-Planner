@@ -20,4 +20,9 @@ class PlannerSerializer(serializers.ModelSerializer):
         model = Planner
         fields = "__all__" 
         
+class MessageSerializer(serializers.ModelSerializer):
+    sender = serializers.SlugRelatedField(many=False, slug_field='Name', queryset=User.objects.all())
+    class Meta:
+        model = Message
+        fields = ['sender', 'message', 'timestamp','group_id']
 

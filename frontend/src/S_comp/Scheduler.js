@@ -4,17 +4,23 @@ import moment from 'moment';
 import { Dates } from './dates.js';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
+import { useLocation } from 'react-router-dom'
 // import './App.css';
 
 // import {Dates} from './S_comp/dates.js';
 // import Container from 'react-bootstrap/Container';
 // import Navbar from 'react-bootstrap/Navbar';
 
-
-export function Scehduler() {
+// let userid=1;
+// let trip_id=1;
+export function Scehduler(props) {
 
   let [sdate, setSDate] = useState("");
   let [edate, setEDate] = useState("");
+  const location = useLocation();
+  const { trip } = location.state;
+  const { user } = location.state;
+  
   function getDates(startDate, stopDate) {
     var dateArray = [];
     var currentDate = moment(startDate);
@@ -28,7 +34,7 @@ export function Scehduler() {
 
   // 3. Create out useEffect function
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/1/trips/1/")
+    fetch(`http://127.0.0.1:8000/${user}/trips/${trip}/`)
       .then((response) => response.json())
       .then((data) => { setSDate(data.start_date); setEDate(data.end_date); })
   }, [])
@@ -41,7 +47,7 @@ export function Scehduler() {
       <div>
         <Navbar variant="dark"
           style={{ backgroundColor: "#E28616", color: "#000000", height: "50px" }}>
-          <SideBar />
+          <SideBar trip={trip} user={user}/>
           <Container>
             <Navbar.Brand style={{ fontSize: "30px" }}><strong>TRIP  ROYALE</strong></Navbar.Brand>
           </Container>
@@ -51,7 +57,7 @@ export function Scehduler() {
           <h4>SCHEDULER</h4>
         </Navbar>
       </div>
-      <Dates dayplans={daysOfTrip} startDate={sdate}/>
+      <Dates dayplans={daysOfTrip} startDate={sdate} trip={trip} user={props.user} />
     </>
   );
 }
