@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card';
 import Navbar from 'react-bootstrap/Navbar';
 import ListGroup from 'react-bootstrap/ListGroup';
 import Button from 'react-bootstrap/Button';
-import SideBar from './S_comp/Sidebar';
+import SideBar from './Scheduler/Sidebar';
 
 export const ChatPage = ({ groupData }) => {
     let username = "aryan";
@@ -15,9 +15,9 @@ export const ChatPage = ({ groupData }) => {
     const [input, setInput] = useState(''); // State to store input message
     useEffect(() => { 
         // console.log( props.startDate)
-        fetch("http://127.0.0.1:8000/1/trips/1/messages/")
+        fetch("http://127.0.0.1:8000/1/1/messages/")
           .then((response) => response.json())
-          .then((data) => {setMessages(data); console.log(messages);return fetch(`http://localhost:8000/1/trips/1/attendees`)})
+          .then((data) => {setMessages(data); console.log(messages);return fetch(`http://localhost:8000/1/1/attendees`)})
           .then((response) => response.json())
           .then((data) => setMembers(data));
         console.log(messages);
@@ -37,7 +37,7 @@ export const ChatPage = ({ groupData }) => {
             group_id:group_id
         };
         console.log(input);
-        fetch('http://127.0.0.1:8000/1/trips/1/post/',{
+        fetch('http://127.0.0.1:8000/1/1/post/',{
             // mode: 'no-cors',
             method: 'POST',
             body: JSON.stringify({

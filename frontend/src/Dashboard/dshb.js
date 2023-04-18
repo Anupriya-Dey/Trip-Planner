@@ -6,14 +6,14 @@ import Navbar from 'react-bootstrap/Navbar';
 import Card from 'react-bootstrap/Card';
 import Button from 'react-bootstrap/Button';
 import { useState, useEffect } from 'react';
-import { Outlet, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const DashB = (props) => {
   const [groupsData, setData] = useState([]);
   const [trip, setTrip] = useState("");
   // const [user, setUser] = useState(0);
   useEffect(() => {
-    fetch("http://127.0.0.1:8000/1/trips")
+    fetch(`http://127.0.0.1:8000/${props.user}/trips`)
       .then((response) => response.json())
       .then((data) => { setData(data) })
   }, [])
@@ -72,7 +72,7 @@ export const DashB = (props) => {
               {groupsData.map((ev) => {
                 return (
                   <div key={ev.id} className="d-flex mb-3">
-                    <Link to="/scheduler" state={{ trip: ev.id, user: props.user }}>
+                    <Link to="/scheduler" state={{ trip: ev.id, user: props.user }} style={{textDecoration:'none'}}>
                 
                     <Card onClick={() => {
                       setTrip(ev.id);
@@ -109,7 +109,7 @@ export const DashB = (props) => {
                   marginTop: '30%',
                   marginLeft: "70%"
                 }}>
-                <Link to="/newtrip">+
+                <Link to="/newtrip" state={{user:props.user}} >+
                 </Link>
               </Button>
             </Container>

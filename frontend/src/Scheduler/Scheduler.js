@@ -34,7 +34,7 @@ export function Scehduler(props) {
 
   // 3. Create out useEffect function
   useEffect(() => {
-    fetch(`http://127.0.0.1:8000/${user}/trips/${trip}/`)
+    fetch(`http://127.0.0.1:8000/${user}/${trip}/`)
       .then((response) => response.json())
       .then((data) => { setSDate(data.start_date); setEDate(data.end_date); })
   }, [])

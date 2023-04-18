@@ -5,6 +5,8 @@ import photo from './Travel_mode.png'
 // import { usersData } from './usersData';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
+import { Link } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom'
 
 export const NewTrip = () => {
   const [groupName, setGroupName] = useState('');
@@ -13,14 +15,18 @@ export const NewTrip = () => {
   const [endDate, setEndDate] = useState('');
   const [selectedMembers, setSelectedMembers] = useState([]);
   const [usersData, setUsersData] = useState([]);
+  const [trip, setTrip] = useState(1);
+  const location = useLocation();
+  const navigate = useNavigate()
+  const { user } = location.state;
 
   useEffect(() => {
     fetch("http://127.0.0.1:8000/users")
-    .then((response) => response.json())
-    .then((data) => {setUsersData(data)})
-  
+      .then((response) => response.json())
+      .then((data) => { setUsersData(data) })
+
   }, [])
-  console.log(usersData);
+  // console.log(usersData);
 
 
   const handleMemberSelection = (event) => {
@@ -30,7 +36,7 @@ export const NewTrip = () => {
       if (selectedOptions[i].selected) {
         // console.log(selectedOptions[i].value);
         // selectedMemberIds.push((selectedOptions[i].value));
-        selectedMemberIds = [...selectedMemberIds,selectedOptions[i].value,];
+        selectedMemberIds = [...selectedMemberIds, selectedOptions[i].value,];
       }
     }
     for (let i = 0; i < selectedMemberIds.length; i++) {
@@ -46,12 +52,12 @@ export const NewTrip = () => {
       alert("Group details can't be empty");
     }
     else {
-      fetch(`http://127.0.0.1:8000/1/newTrip`, {
+      fetch(`http://127.0.0.1:8000/${user}/newTrip`, {
         method: 'POST',
         body: JSON.stringify({
           dest: destination,
           name: groupName,
-          leader: 1,
+          leader: user,
           attendees: selectedMembers,
           start_date: startDate,
           end_date: endDate,
@@ -68,13 +74,27 @@ export const NewTrip = () => {
         },
       })
         // .then(console.log('Form submitted:', groupName, destination, startDate, endDate, selectedMembers);)
-        .then((res) => { console.log(res); return res.json(); })
+        .then((response) => response.json())
+        .then((response) => {
+          navigate('/scheduler', {
+            state: {
+              trip: response.id,
+              user: user
+            }
+          })
+        })
+        // .then(response => {return response.json();})
+        // // .then((res) => { console.log(res.json()); return res.json(); })
+        // .then((response)=>{setTrip(response.id);console.log(trip)})
         // .then((data) => props.addMyTask(data.id, data.time, data.loc, data.desc))
         .catch((err) => {
           console.log(err.message);
         });
+      ;
+
     }
   };
+  console.log(trip);
 
   return (
 
@@ -148,7 +168,9 @@ export const NewTrip = () => {
                 type="submit"
                 style={{ margin: "3%", backgroundColor: '#FF900B', color: '#000000', borderColor: '#000000', width: '95%' }}
               >
+                {/* <Link to="/scheduler" state={{trip:trip, user:user}}> */}
                 SUBMIT
+                {/* </Link> */}
               </Button>
             </Form>
           </div>

@@ -27,7 +27,7 @@ export const TaskAdd = (props) => {
       alert("PLease fill all the details for your plan");
     }
     else {
-      fetch(`http://127.0.0.1:8000/${props.user}/trips/${props.trip}/newSchedule`, {
+      fetch(`http://127.0.0.1:8000/${props.user}/${props.trip}/newSchedule`, {
         method: 'POST',
         body: JSON.stringify({
           desc: desc,

@@ -8,7 +8,7 @@ export const DayPlans = (props) => {
 
   const [status, setStatus] = useState("");
   function handleClick(Task) {
-    fetch(`http://localhost:8000/${props.user}/trips/${props.trip}/schedule/${Task.date}/events/${Task.id}`, { method: 'DELETE' })
+    fetch(`http://localhost:8000/${props.user}/${props.trip}/schedule/${Task.date}/events/${Task.id}`, { method: 'DELETE' })
       .then(() => setStatus('Delete successful'));
     console.log(status);
   };

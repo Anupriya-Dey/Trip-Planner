@@ -10,7 +10,7 @@ class App extends Component {
 
     async componentDidMount() {
       try {
-        const res1 = await fetch('http://localhost:8000/1/trips/1/schedule/2023-04-05/events');
+        const res1 = await fetch('http://localhost:8000/1/1/schedule/2023-04-05/events');
         const attendees = await res1.json();
 
         // const res2 = await fetch('http://localhost:8000/api/users/');

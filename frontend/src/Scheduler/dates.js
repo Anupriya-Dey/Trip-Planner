@@ -32,9 +32,9 @@ export const Dates = (props) => {
   }
   useEffect(() => {
     console.log(props.startDate)
-    fetch(`http://127.0.0.1:8000/${props.user}/trips/${props.trip}/`)
+    fetch(`http://127.0.0.1:8000/${props.user}/${props.trip}/`)
       .then((response) => response.json())
-      .then((data) => { setDay(data.start_date); return fetch(`http://localhost:8000/${props.user}/trips/${props.trip}/schedule/${data.start_date}/events`) })
+      .then((data) => { setDay(data.start_date); return fetch(`http://localhost:8000/${props.user}/${props.trip}/schedule/${data.start_date}/events`) })
       .then((response) => response.json())
       .then((data) => setSchedule(data));
     console.log(schedule);
@@ -42,7 +42,7 @@ export const Dates = (props) => {
   }, [])
 
   const handleClick = async (date) => {
-    const res = await fetch(`http://localhost:8000/${props.user}/trips/${props.trip}/schedule/${date}/events`);
+    const res = await fetch(`http://localhost:8000/${props.user}/${props.trip}/schedule/${date}/events`);
     const schedule = await res.json();
     setSchedule(schedule);
     // setOpen(!open)

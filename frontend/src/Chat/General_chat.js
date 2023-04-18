@@ -7,7 +7,7 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import Col from 'react-bootstrap/Col';
 // import SideBar from '../Sidebar';
-import background from '../S_comp/Scheduler.jpg';
+import background from '../Scheduler/Scheduler.jpg';
 import { useLocation } from 'react-router-dom'
 
 
@@ -24,9 +24,9 @@ export const ChatPage = () => {
     const [input, setInput] = useState(''); // State to store input message
     useEffect(() => {
         // console.log( props.startDate)
-        fetch(`http://127.0.0.1:8000/${user}/trips/${trip}/messages/`)
+        fetch(`http://127.0.0.1:8000/${user}/${trip}/messages/`)
             .then((response) => response.json())
-            .then((data) => { setMessages(data); console.log(messages); return fetch(`http://localhost:8000/${user}/trips/${trip}/attendees`) })
+            .then((data) => { setMessages(data); console.log(messages); return fetch(`http://localhost:8000/${user}/${trip}/attendees`) })
             .then((response) => response.json())
             .then((data) => setMembers(data));
         console.log(members);
@@ -55,7 +55,7 @@ export const ChatPage = () => {
 
         console.log(input);
        
-        fetch(`http://127.0.0.1:8000/${user}/trips/${trip}/post/`, {
+        fetch(`http://127.0.0.1:8000/${user}/${trip}/post/`, {
             // mode: 'no-cors',
             method: 'POST',
             body: JSON.stringify({
